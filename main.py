@@ -6,8 +6,9 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException
 
-# Counter variable
+# Counter variables
 iteration = 1
+exception_count = 0
 
 # Infinite loop
 while True:
@@ -41,7 +42,7 @@ while True:
 
         # Find the "Abstimmen" button using the provided HTML
         abstimmen_button = WebDriverWait(driver, 10).until(
-            EC.element_to_be_clickable((By.XPATH, "//span[contains(text(), 'Abstimmen')]"))
+            EC.element_to_be_clickable((By.XPATH, "//div[@class='submit-container ng-star-inserted']//button[@color='accent']"))
         )
         abstimmen_button.click()
 
@@ -51,22 +52,23 @@ while True:
         # Perform any desired actions on the resulting page
         # You can add additional code here to interact with the page, extract data, etc.
 
-        # Print iteration number and timestamp if no error caught
+        # Print iteration number and timestamp
         current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(f"Iteration: {iteration} - Timestamp: {current_time}")
 
-        # Increment the iteration counter if no error caught
+        # Increment the iteration counter
         iteration += 1
 
     except TimeoutException:
-        print("Abstimmen button not found within the given timeout. Waiting for the next iteration.")
+        exception_count += 1
+        print(f"Abstimmen button not found within the given timeout. Waiting for the next iteration.")
+        print(f"Total exceptions so far: {exception_count}")
 
-        continue
     finally:
         # Close the browser window
         driver.quit()
 
-        # Wait for 5 minutes and 1 second before the next iteration
-        time.sleep(301)
+        # Wait for 5 minutes
+        time.sleep(300)
 
 # The code will keep running in an infinite loop until manually stopped.
