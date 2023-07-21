@@ -51,17 +51,6 @@ while True:
         # Perform any desired actions on the resulting page
         # You can add additional code here to interact with the page, extract data, etc.
 
-    except TimeoutException:
-        print("Abstimmen button not found within the given timeout. Waiting for the next iteration.")
-        # Close the browser window
-        driver.quit()
-        # Wait for 5 minutes and 1 second before the next iteration
-        time.sleep(301)
-        continue
-    finally:
-        # Close the browser window
-        driver.quit()
-
         # Print iteration number and timestamp if no error caught
         current_time = datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         print(f"Iteration: {iteration} - Timestamp: {current_time}")
@@ -69,8 +58,15 @@ while True:
         # Increment the iteration counter if no error caught
         iteration += 1
 
+    except TimeoutException:
+        print("Abstimmen button not found within the given timeout. Waiting for the next iteration.")
+
+        continue
+    finally:
+        # Close the browser window
+        driver.quit()
+
         # Wait for 5 minutes and 1 second before the next iteration
         time.sleep(301)
 
 # The code will keep running in an infinite loop until manually stopped.
-
