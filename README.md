@@ -1,4 +1,4 @@
-# WebsiteVootingMachine
+# WebsiteBotingMachine
 
 This script is designed to automate the process of voting on a website using Selenium. It navigates to a specific website, performs a series of actions such as accepting cookies, selecting options, and clicking buttons, and then repeats the process in an infinite loop with a delay between iterations.
 
